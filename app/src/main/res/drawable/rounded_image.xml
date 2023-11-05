@@ -1,0 +1,3 @@
+<style name="CircularShape">
+    <item name="shapeAppearanceOverlay">@drawable/circular_shape</item>
+</style>
