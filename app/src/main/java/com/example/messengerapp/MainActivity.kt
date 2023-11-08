@@ -13,25 +13,30 @@ import androidx.recyclerview.widget.RecyclerView
 class MainActivity : ComponentActivity() {
 
     private val chatItems: ArrayList<ChatListItem> = ArrayList()
+    val adapter : ChatRecyclerView = ChatRecyclerView(this, chatItems)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val textView = findViewById<TextView>(R.id.headline)
-        textView.text = "Messenger 2.0"
+        val header : TextView = findViewById(R.id.header)
+        header.text = "Messenger 2.0"
 
         val recyclerView :RecyclerView = findViewById(R.id.chatList)
         dummyChatItems()
-        val darkModeSwitch = findViewById<Switch>(R.id.darkMode)
+
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val darkModeSwitch : Switch = findViewById(R.id.darkMode)
 
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             darkMode(isChecked)
         }
-
-        val adapter : ChatRecyclerView = ChatRecyclerView(this, chatItems)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 
@@ -45,16 +50,21 @@ class MainActivity : ComponentActivity() {
 
     private fun darkMode(darkMode: Boolean){
         val background = findViewById<ConstraintLayout>(R.id.mainActivity)
-        val messageText = findViewById<TextView>(R.id.message_text)
-        val chatName = findViewById<TextView>(R.id.chat_name)
+        val header = findViewById<TextView>(R.id.header)
+        val darkModeSwitch = findViewById<Switch>(R.id.darkMode)
+
         if(darkMode){
             background.setBackgroundColor(android.graphics.Color.parseColor("#FF000000"))
-            messageText.setTextColor(android.graphics.Color.parseColor("#FFFFFFFF"))
-            chatName.setTextColor(android.graphics.Color.parseColor("#FFFFFFFF"))
+            header.setTextColor(android.graphics.Color.parseColor("#FFFFFFFF"))
+            darkModeSwitch.setTextColor(android.graphics.Color.parseColor("#FFFFFFFF"))
         }else{
             background.setBackgroundColor(android.graphics.Color.parseColor("#FFFFFFFF"))
-            messageText.setTextColor(android.graphics.Color.parseColor("#FF000000"))
-            chatName.setTextColor(android.graphics.Color.parseColor("#FF000000"))
+            header.setTextColor(android.graphics.Color.parseColor("#FF000000"))
+            darkModeSwitch.setTextColor(android.graphics.Color.parseColor("#FF000000"))
         }
+        for (item in chatItems) {
+            item.isDarkMode = darkMode
+        }
+        adapter.notifyDataSetChanged()
     }
 }

@@ -1,6 +1,7 @@
 package com.example.messengerapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +29,23 @@ public class ChatRecyclerView extends RecyclerView.Adapter<ChatRecyclerView.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        ChatListItem currentItem = chatListItems.get(position);
+
         // Bind your data to views here
-        // For instance:
-        holder.chatName.setText(chatListItems.get(position).getChatName()); // Set your actual chat name
-        holder.messageText.setText(chatListItems.get(position).getMessageText()); // Set your actual message
+        holder.chatName.setText(currentItem.getChatName()); // Set your actual chat name
+        holder.messageText.setText(currentItem.getMessageText()); // Set your actual message
+
+        if (currentItem.isDarkMode()) {
+            holder.chatName.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.messageText.setTextColor(Color.parseColor("#FFFFFFFF"));
+            // Set the background color of your item's layout as well if needed
+        } else {
+            holder.chatName.setTextColor(Color.parseColor("#FF000000"));
+            holder.messageText.setTextColor(Color.parseColor("#FF000000"));
+            // Set the background color of your item's layout as well if needed
+        }
     }
+
 
     @Override
     public int getItemCount() {
