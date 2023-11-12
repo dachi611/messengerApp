@@ -1,6 +1,8 @@
 package com.example.messengerapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Switch
 
 import android.widget.TextView
@@ -24,9 +26,15 @@ class MainActivity : ComponentActivity() {
         val recyclerView :RecyclerView = findViewById(R.id.chatList)
         dummyChatItems()
 
-
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val registerButton : Button = findViewById(R.id.registerButton)
+
+        registerButton.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

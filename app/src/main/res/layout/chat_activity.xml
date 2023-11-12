@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/messageobject"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="310dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/rounded_editText"
+        android:ems="10"
+        android:hint=" Message"
+        android:inputType="text"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/send"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextText"
+        app:layout_constraintStart_toEndOf="@+id/editTextText"
+        app:layout_constraintTop_toTopOf="@+id/editTextText"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="33dp"
+        android:layout_height="29dp"
+        android:background="@drawable/back"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <TextView
+        android:id="@+id/messageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/message"
+        android:paddingStart="30dp"
+        android:paddingTop="10dp"
+        android:text="Text message sample"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="523dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
