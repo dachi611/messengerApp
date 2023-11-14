@@ -7,18 +7,20 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="310dp"
+        android:id="@+id/typedText"
+        android:layout_width="0dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/rounded_editText"
+        android:background="@drawable/rounded_edit_text"
         android:ems="10"
         android:hint=" Message"
         android:inputType="text"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/sendButton"
         app:layout_constraintHorizontal_bias="0.158"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -27,29 +29,36 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/send"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText"
-        app:layout_constraintStart_toEndOf="@+id/editTextText"
-        app:layout_constraintTop_toTopOf="@+id/editTextText"
+        app:layout_constraintBottom_toBottomOf="@+id/typedText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/typedText"
+        app:layout_constraintTop_toTopOf="@+id/typedText"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/backButton"
         android:layout_width="33dp"
         android:layout_height="29dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/back"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="8dp" />
-
-    <TextView
-        android:id="@+id/messageText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/message"
-        android:paddingStart="30dp"
-        android:paddingTop="10dp"
-        android:text="Text message sample"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="523dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messages"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/typedText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButton"
+        app:layout_constraintVertical_bias="0.5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

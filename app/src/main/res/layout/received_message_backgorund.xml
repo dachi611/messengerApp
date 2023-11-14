@@ -6,12 +6,12 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/messageText"
+        android:id="@+id/receivedMessageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/sender_message_background"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/recieved_message_background"
         android:maxEms="20"
         android:paddingStart="10dp"
         android:paddingTop="10dp"
@@ -19,7 +19,7 @@
         android:paddingBottom="10dp"
         android:text="To help guide you through the professional side of SMS, we’ll share some examples of professional text messages you can send to customers and employees. We’ll also explain when they’re appropriate and how to write your own."
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

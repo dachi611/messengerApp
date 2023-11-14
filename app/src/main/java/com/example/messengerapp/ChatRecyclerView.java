@@ -1,13 +1,15 @@
 package com.example.messengerapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.view.LayoutInflater;;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -34,6 +36,14 @@ public class ChatRecyclerView extends RecyclerView.Adapter<ChatRecyclerView.MyVi
         // Bind your data to views here
         holder.chatName.setText(currentItem.getChatName()); // Set your actual chat name
         holder.messageText.setText(currentItem.getMessageText()); // Set your actual message
+        holder.messageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event, e.g., open a new activity
+                Intent intent = new Intent(context, ChatActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
         if (currentItem.isDarkMode()) {
             holder.chatName.setTextColor(Color.parseColor("#FFFFFFFF"));
@@ -58,10 +68,13 @@ public class ChatRecyclerView extends RecyclerView.Adapter<ChatRecyclerView.MyVi
         TextView chatName;
         TextView messageText;
 
+        CardView messageView;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             chatName = itemView.findViewById(R.id.chat_name);
             messageText = itemView.findViewById(R.id.message_text);
+            messageView = itemView.findViewById(R.id.message_view);
         }
     }
 }

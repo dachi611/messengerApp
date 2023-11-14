@@ -2,11 +2,13 @@ package com.example.messengerapp
 
 import android.content.Intent
 import android.os.Bundle
+
 import android.widget.Button
 import android.widget.Switch
 
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,21 +31,20 @@ class MainActivity : ComponentActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val registerButton : Button = findViewById(R.id.registerButton)
-
-        registerButton.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 
     override fun onResume() {
         super.onResume()
         val darkModeSwitch : Switch = findViewById(R.id.darkMode)
+        val registerButton : Button = findViewById(R.id.registerButton)
 
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             darkMode(isChecked)
+        }
+
+        registerButton.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -75,4 +76,5 @@ class MainActivity : ComponentActivity() {
         }
         adapter.notifyDataSetChanged()
     }
+
 }
