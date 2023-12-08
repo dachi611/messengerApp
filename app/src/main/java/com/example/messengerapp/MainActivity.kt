@@ -2,17 +2,13 @@ package com.example.messengerapp
 
 import android.content.Intent
 import android.os.Bundle
-
 import android.widget.Button
 import android.widget.Switch
-
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 
 class MainActivity : ComponentActivity() {
 
@@ -30,6 +26,9 @@ class MainActivity : ComponentActivity() {
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        //async api call
+        val client : MyApiClient
+        System.out.println();
 
     }
 
