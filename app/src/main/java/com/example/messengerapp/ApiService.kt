@@ -12,4 +12,6 @@ interface ApiService {
     fun getUserData(): Call<ResponseBody>
     @POST("register")
     fun postData(@Body requestBody: RequestBody): Call<ResponseBody>
+    @POST("login")
+    fun login(@Body credentials: RequestBody): Call<ResponseBody>
 }

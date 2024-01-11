@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.activity.ComponentActivity
 
 class LoginActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
@@ -17,35 +18,12 @@ class LoginActivity : ComponentActivity() {
         val loginBtn: Button = findViewById(R.id.loginBtn)
         val registerBtn : Button = findViewById(R.id.registerBtn)
 
-//        // Create an instance of the Retrofit interface
-////        val myApiService = RetrofitClient.getClient().create(ApiService::class.java)
-//
-//        // Make the API call
-//
-//        val call = ApiService.getUserData()
-//        call.enqueue(object : Callback<Boolean> {
-//            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-//                if (response.isSuccessful) {
-//                    // Handle successful response
-//                    val data: Boolean? = response.body()
-//                    // Process the data as needed
-//                } else {
-//                    // Handle error response
-//                    // You can check response.errorBody() for more details
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Boolean>, t: Throwable) {
-//                // Handle failure
-//                t.printStackTrace()
-//            }
-//        })
-
         loginBtn.setOnClickListener(View.OnClickListener {
             // Replace this with your authentication logic
             if (isValidCredentials(username.text.toString(), password.text.toString())) {
                 // If the credentials are valid, start the main activity
                 var preferenceManager = PreferenceManager(this)
+                preferenceManager.setLoggedIn(true)
                 startMainActivity()
             } else {
                 // If the credentials are not valid, you can show an error message

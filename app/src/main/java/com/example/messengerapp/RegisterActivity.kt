@@ -31,7 +31,7 @@ class RegisterActivity : ComponentActivity() {
         val submitBtn : Button = findViewById(R.id.submitRegistration)
 
         submitBtn.setOnClickListener {
-            submit(registerName, registerLastName, registerPassword)
+            submit(registerEmail, registerPassword)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
@@ -39,9 +39,9 @@ class RegisterActivity : ComponentActivity() {
     }
 
 
-    fun submit(registerName: TextView, registerLastName: TextView, registerPassword: TextView) {
+    fun submit(registerEmail: TextView, registerPassword: TextView) {
         val jsonObject = JsonObject()
-        jsonObject.addProperty("username", "${registerName.text} ${registerLastName.text}")
+        jsonObject.addProperty("username", "${registerEmail.text}")
         jsonObject.addProperty("password", "${registerPassword.text}")
 
         val requestBody = jsonObject.toString().toRequestBody("application/json".toMediaType())
