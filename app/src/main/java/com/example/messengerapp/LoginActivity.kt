@@ -1,11 +1,23 @@
 package com.example.messengerapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.ComponentActivity
+import com.google.gson.JsonObject
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody
+import org.json.JSONException
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : ComponentActivity() {
 
@@ -19,15 +31,9 @@ class LoginActivity : ComponentActivity() {
         val registerBtn : Button = findViewById(R.id.registerBtn)
 
         loginBtn.setOnClickListener(View.OnClickListener {
-            // Replace this with your authentication logic
             if (isValidCredentials(username.text.toString(), password.text.toString())) {
-                // If the credentials are valid, start the main activity
-                var preferenceManager = PreferenceManager(this)
-                preferenceManager.setLoggedIn(true)
-                startMainActivity()
+                makeLoginRequest(username, password)
             } else {
-                // If the credentials are not valid, you can show an error message
-                // For simplicity, let's just clear the password field
                 password.text.clear()
             }
         })
@@ -39,15 +45,71 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun isValidCredentials(username: String, password: String): Boolean {
-        // Implement your authentication logic here
-        // For simplicity, let's say the credentials are valid if the username and password are not empty
-
-        return true//!username.isEmpty() && !password.isEmpty()
+        return !username.isEmpty() && !password.isEmpty()
     }
 
     private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() // Finish the login activity so the user cannot go back to it using the back button
+        finish()
+    }
+
+    private fun parseTokenFromJson(json: String?): String? {
+        try {
+            val jsonObject = JSONObject(json)
+            return jsonObject.getString("access_token")
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    private fun saveTokenToSharedPreferences(token: String?) {
+        val sharedPreferences = getSharedPreferences("LOGIN_TOKEN", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("token_key", token)
+        editor.apply()
+        Log.d("SharedPreferences", "Saved Token: $token")
+    }
+
+    private fun makeLoginRequest(email: TextView, password: TextView) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("username", email.text.toString())
+        jsonObject.addProperty("password", password.text.toString())
+
+        val requestBody = jsonObject.toString().toRequestBody("application/json".toMediaType())
+
+        val service = RetrofitClient.getClient().create(ApiService::class.java)
+        val call: Call<ResponseBody> = service.login(requestBody)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.d("LoginRequest", "Response Code: ${response.code()}")
+                Log.d("LoginRequest", "Response Headers: ${response.headers()}")
+
+                if (response.isSuccessful) {
+                    val responseBody: ResponseBody? = response.body()
+                    val tokenJson = responseBody?.string()
+
+                    Log.d("LoginRequest", "Response Body: $tokenJson")
+
+                    val token = parseTokenFromJson(tokenJson)
+                    println("and the fucking token iiiis: $token")
+                    saveTokenToSharedPreferences(token)
+
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Log.d("LoginRequest", "Error Body: ${response.errorBody()?.string()}")
+                    System.out.println("failed")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("LoginRequest", "Request Failed: ${t.message}")
+                t.printStackTrace()
+            }
+        })
     }
 }
