@@ -57,7 +57,7 @@ class LoginActivity : ComponentActivity() {
     private fun parseTokenFromJson(json: String?): String? {
         try {
             val jsonObject = JSONObject(json)
-            return jsonObject.getString("access_token")
+            return jsonObject.getString("accessToken")
         } catch (e: JSONException) {
             e.printStackTrace()
         }
